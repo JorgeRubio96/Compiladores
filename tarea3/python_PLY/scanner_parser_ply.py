@@ -1,3 +1,9 @@
+#	scanner_parser_ply.py
+#
+#	little duck language, python version
+
+#	Tokens
+
 tokens = (
 	'INT', 'FLOAT', 'STRING', 'ID', 'PLUS',
 	'MINUS', 'TIMES', 'SLASH', 'LPAREN', 'RPAREN',
@@ -5,6 +11,8 @@ tokens = (
 	'EQL', 'NEG', 'LSS', 'GTR', 'IFSYM', 'ELSESYM',
 	'PROGRAMSYM', 'PRINTSYM', 'VARSYM', 'INTSYM', 'FLOATSYM',
 	)
+
+# 	Tokens
 
 t_PLUS 		= r'\+'
 t_MINUS 	= r'-'
@@ -22,8 +30,6 @@ t_NEG		= r'<>'
 t_LSS 		= r'<'
 t_GTR		= r'>'
 
-
-#dot      = r'\.'
 
 def t_FLOAT(t):
 	r'[0-9]+[\.][0-9]+'
@@ -69,7 +75,7 @@ def t_STRING(t):
 	r'\"[a-zA-Z]([a-zA-Z0-9])*\"'
 	return t
 
-
+#	Ignored characterss
 t_ignore = ' \t'
 
 def t_newline(t):
@@ -81,11 +87,9 @@ def t_error(t):
 	t.lexer.skip(1)
 	sys.exit(0)
 
+#	Build the lexer
 import ply.lex as lex
 lex.lex()
-
-
-# ###STATEMENTS!!!!
 
 
 #http://snatverk.blogspot.mx/2011/01/parser-de-mini-c-en-python.html
