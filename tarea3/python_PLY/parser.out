@@ -1,0 +1,1324 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAMSYM ID SEMICOLON program1 bloque
+Rule 2     program1 -> vars
+Rule 3     program1 -> epsilon
+Rule 4     vars -> VARSYM vars1
+Rule 5     vars1 -> vars2 COLON tipo SEMICOLON vars3
+Rule 6     vars2 -> ID vars4
+Rule 7     vars3 -> vars1
+Rule 8     vars3 -> epsilon
+Rule 9     vars4 -> COMMA vars2
+Rule 10    vars4 -> epsilon
+Rule 11    tipo -> INTSYM
+Rule 12    tipo -> FLOATSYM
+Rule 13    bloque -> LCURL bloque1 RCURL
+Rule 14    bloque1 -> estatuto bloque1
+Rule 15    bloque1 -> epsilon
+Rule 16    estatuto -> asignacion
+Rule 17    estatuto -> condicion
+Rule 18    estatuto -> escritura
+Rule 19    asignacion -> ID EQL expresion SEMICOLON
+Rule 20    expresion -> exp expresion1
+Rule 21    expresion1 -> epsilon
+Rule 22    expresion1 -> expresion2 exp
+Rule 23    expresion2 -> LSS
+Rule 24    expresion2 -> GTR
+Rule 25    expresion2 -> NEG
+Rule 26    escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON
+Rule 27    escritura1 -> escritura2 escritura3
+Rule 28    escritura2 -> expresion
+Rule 29    escritura2 -> STRING
+Rule 30    escritura3 -> COMMA escritura1
+Rule 31    escritura3 -> epsilon
+Rule 32    exp -> termino exp1
+Rule 33    exp1 -> PLUS termino exp1
+Rule 34    exp1 -> MINUS termino exp1
+Rule 35    exp1 -> epsilon
+Rule 36    condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON
+Rule 37    condicion1 -> ELSESYM bloque
+Rule 38    condicion1 -> epsilon
+Rule 39    termino -> factor termino1
+Rule 40    termino1 -> TIMES factor termino1
+Rule 41    termino1 -> SLASH factor termino1
+Rule 42    termino1 -> epsilon
+Rule 43    factor -> LPAREN expresion RPAREN
+Rule 44    factor -> factor1 varcte
+Rule 45    factor1 -> PLUS
+Rule 46    factor1 -> MINUS
+Rule 47    factor1 -> epsilon
+Rule 48    varcte -> FLOAT
+Rule 49    varcte -> INT
+Rule 50    varcte -> ID
+Rule 51    epsilon -> <empty>
+
+Terminals, with rules where they appear
+
+COLON                : 5
+COMMA                : 9 30
+ELSESYM              : 37
+EQL                  : 19
+FLOAT                : 48
+FLOATSYM             : 12
+GTR                  : 24
+ID                   : 1 6 19 50
+IFSYM                : 36
+INT                  : 49
+INTSYM               : 11
+LCURL                : 13
+LPAREN               : 26 36 43
+LSS                  : 23
+MINUS                : 34 46
+NEG                  : 25
+PLUS                 : 33 45
+PRINTSYM             : 26
+PROGRAMSYM           : 1
+RCURL                : 13
+RPAREN               : 26 36 43
+SEMICOLON            : 1 5 19 26 36
+SLASH                : 41
+STRING               : 29
+TIMES                : 40
+VARSYM               : 4
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 16
+bloque               : 1 36 37
+bloque1              : 13 14
+condicion            : 17
+condicion1           : 36
+epsilon              : 3 8 10 15 21 31 35 38 42 47
+escritura            : 18
+escritura1           : 26 30
+escritura2           : 27
+escritura3           : 27
+estatuto             : 14
+exp                  : 20 22
+exp1                 : 32 33 34
+expresion            : 19 28 36 43
+expresion1           : 20
+expresion2           : 22
+factor               : 39 40 41
+factor1              : 44
+program              : 0
+program1             : 1
+termino              : 32 33 34
+termino1             : 39 40 41
+tipo                 : 5
+varcte               : 44
+vars                 : 2
+vars1                : 4 7
+vars2                : 5 9
+vars3                : 5
+vars4                : 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAMSYM ID SEMICOLON program1 bloque
+
+    PROGRAMSYM      shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAMSYM . ID SEMICOLON program1 bloque
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAMSYM ID . SEMICOLON program1 bloque
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAMSYM ID SEMICOLON . program1 bloque
+    (2) program1 -> . vars
+    (3) program1 -> . epsilon
+    (4) vars -> . VARSYM vars1
+    (51) epsilon -> .
+
+    VARSYM          shift and go to state 7
+    LCURL           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 6
+    program1                       shift and go to state 8
+    vars                           shift and go to state 5
+
+state 5
+
+    (2) program1 -> vars .
+
+    LCURL           reduce using rule 2 (program1 -> vars .)
+
+
+state 6
+
+    (3) program1 -> epsilon .
+
+    LCURL           reduce using rule 3 (program1 -> epsilon .)
+
+
+state 7
+
+    (4) vars -> VARSYM . vars1
+    (5) vars1 -> . vars2 COLON tipo SEMICOLON vars3
+    (6) vars2 -> . ID vars4
+
+    ID              shift and go to state 11
+
+    vars2                          shift and go to state 9
+    vars1                          shift and go to state 10
+
+state 8
+
+    (1) program -> PROGRAMSYM ID SEMICOLON program1 . bloque
+    (13) bloque -> . LCURL bloque1 RCURL
+
+    LCURL           shift and go to state 13
+
+    bloque                         shift and go to state 12
+
+state 9
+
+    (5) vars1 -> vars2 . COLON tipo SEMICOLON vars3
+
+    COLON           shift and go to state 14
+
+
+state 10
+
+    (4) vars -> VARSYM vars1 .
+
+    LCURL           reduce using rule 4 (vars -> VARSYM vars1 .)
+
+
+state 11
+
+    (6) vars2 -> ID . vars4
+    (9) vars4 -> . COMMA vars2
+    (10) vars4 -> . epsilon
+    (51) epsilon -> .
+
+    COMMA           shift and go to state 15
+    COLON           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 16
+    vars4                          shift and go to state 17
+
+state 12
+
+    (1) program -> PROGRAMSYM ID SEMICOLON program1 bloque .
+
+    $end            reduce using rule 1 (program -> PROGRAMSYM ID SEMICOLON program1 bloque .)
+
+
+state 13
+
+    (13) bloque -> LCURL . bloque1 RCURL
+    (14) bloque1 -> . estatuto bloque1
+    (15) bloque1 -> . epsilon
+    (16) estatuto -> . asignacion
+    (17) estatuto -> . condicion
+    (18) estatuto -> . escritura
+    (51) epsilon -> .
+    (19) asignacion -> . ID EQL expresion SEMICOLON
+    (36) condicion -> . IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON
+    (26) escritura -> . PRINTSYM LPAREN escritura1 RPAREN SEMICOLON
+
+    RCURL           reduce using rule 51 (epsilon -> .)
+    ID              shift and go to state 25
+    IFSYM           shift and go to state 23
+    PRINTSYM        shift and go to state 26
+
+    bloque1                        shift and go to state 18
+    asignacion                     shift and go to state 19
+    epsilon                        shift and go to state 20
+    estatuto                       shift and go to state 21
+    condicion                      shift and go to state 22
+    escritura                      shift and go to state 24
+
+state 14
+
+    (5) vars1 -> vars2 COLON . tipo SEMICOLON vars3
+    (11) tipo -> . INTSYM
+    (12) tipo -> . FLOATSYM
+
+    INTSYM          shift and go to state 27
+    FLOATSYM        shift and go to state 28
+
+    tipo                           shift and go to state 29
+
+state 15
+
+    (9) vars4 -> COMMA . vars2
+    (6) vars2 -> . ID vars4
+
+    ID              shift and go to state 11
+
+    vars2                          shift and go to state 30
+
+state 16
+
+    (10) vars4 -> epsilon .
+
+    COLON           reduce using rule 10 (vars4 -> epsilon .)
+
+
+state 17
+
+    (6) vars2 -> ID vars4 .
+
+    COLON           reduce using rule 6 (vars2 -> ID vars4 .)
+
+
+state 18
+
+    (13) bloque -> LCURL bloque1 . RCURL
+
+    RCURL           shift and go to state 31
+
+
+state 19
+
+    (16) estatuto -> asignacion .
+
+    ID              reduce using rule 16 (estatuto -> asignacion .)
+    IFSYM           reduce using rule 16 (estatuto -> asignacion .)
+    PRINTSYM        reduce using rule 16 (estatuto -> asignacion .)
+    RCURL           reduce using rule 16 (estatuto -> asignacion .)
+
+
+state 20
+
+    (15) bloque1 -> epsilon .
+
+    RCURL           reduce using rule 15 (bloque1 -> epsilon .)
+
+
+state 21
+
+    (14) bloque1 -> estatuto . bloque1
+    (14) bloque1 -> . estatuto bloque1
+    (15) bloque1 -> . epsilon
+    (16) estatuto -> . asignacion
+    (17) estatuto -> . condicion
+    (18) estatuto -> . escritura
+    (51) epsilon -> .
+    (19) asignacion -> . ID EQL expresion SEMICOLON
+    (36) condicion -> . IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON
+    (26) escritura -> . PRINTSYM LPAREN escritura1 RPAREN SEMICOLON
+
+    RCURL           reduce using rule 51 (epsilon -> .)
+    ID              shift and go to state 25
+    IFSYM           shift and go to state 23
+    PRINTSYM        shift and go to state 26
+
+    bloque1                        shift and go to state 32
+    asignacion                     shift and go to state 19
+    epsilon                        shift and go to state 20
+    estatuto                       shift and go to state 21
+    condicion                      shift and go to state 22
+    escritura                      shift and go to state 24
+
+state 22
+
+    (17) estatuto -> condicion .
+
+    ID              reduce using rule 17 (estatuto -> condicion .)
+    IFSYM           reduce using rule 17 (estatuto -> condicion .)
+    PRINTSYM        reduce using rule 17 (estatuto -> condicion .)
+    RCURL           reduce using rule 17 (estatuto -> condicion .)
+
+
+state 23
+
+    (36) condicion -> IFSYM . LPAREN expresion RPAREN bloque condicion1 SEMICOLON
+
+    LPAREN          shift and go to state 33
+
+
+state 24
+
+    (18) estatuto -> escritura .
+
+    ID              reduce using rule 18 (estatuto -> escritura .)
+    IFSYM           reduce using rule 18 (estatuto -> escritura .)
+    PRINTSYM        reduce using rule 18 (estatuto -> escritura .)
+    RCURL           reduce using rule 18 (estatuto -> escritura .)
+
+
+state 25
+
+    (19) asignacion -> ID . EQL expresion SEMICOLON
+
+    EQL             shift and go to state 34
+
+
+state 26
+
+    (26) escritura -> PRINTSYM . LPAREN escritura1 RPAREN SEMICOLON
+
+    LPAREN          shift and go to state 35
+
+
+state 27
+
+    (11) tipo -> INTSYM .
+
+    SEMICOLON       reduce using rule 11 (tipo -> INTSYM .)
+
+
+state 28
+
+    (12) tipo -> FLOATSYM .
+
+    SEMICOLON       reduce using rule 12 (tipo -> FLOATSYM .)
+
+
+state 29
+
+    (5) vars1 -> vars2 COLON tipo . SEMICOLON vars3
+
+    SEMICOLON       shift and go to state 36
+
+
+state 30
+
+    (9) vars4 -> COMMA vars2 .
+
+    COLON           reduce using rule 9 (vars4 -> COMMA vars2 .)
+
+
+state 31
+
+    (13) bloque -> LCURL bloque1 RCURL .
+
+    $end            reduce using rule 13 (bloque -> LCURL bloque1 RCURL .)
+    ELSESYM         reduce using rule 13 (bloque -> LCURL bloque1 RCURL .)
+    SEMICOLON       reduce using rule 13 (bloque -> LCURL bloque1 RCURL .)
+
+
+state 32
+
+    (14) bloque1 -> estatuto bloque1 .
+
+    RCURL           reduce using rule 14 (bloque1 -> estatuto bloque1 .)
+
+
+state 33
+
+    (36) condicion -> IFSYM LPAREN . expresion RPAREN bloque condicion1 SEMICOLON
+    (20) expresion -> . exp expresion1
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    expresion                      shift and go to state 37
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    exp                            shift and go to state 38
+    factor                         shift and go to state 40
+    termino                        shift and go to state 45
+
+state 34
+
+    (19) asignacion -> ID EQL . expresion SEMICOLON
+    (20) expresion -> . exp expresion1
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    expresion                      shift and go to state 46
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 45
+    exp                            shift and go to state 38
+    factor                         shift and go to state 40
+
+state 35
+
+    (26) escritura -> PRINTSYM LPAREN . escritura1 RPAREN SEMICOLON
+    (27) escritura1 -> . escritura2 escritura3
+    (28) escritura2 -> . expresion
+    (29) escritura2 -> . STRING
+    (20) expresion -> . exp expresion1
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    STRING          shift and go to state 48
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    expresion                      shift and go to state 47
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 45
+    exp                            shift and go to state 38
+    factor                         shift and go to state 40
+    escritura1                     shift and go to state 49
+    escritura2                     shift and go to state 50
+
+state 36
+
+    (5) vars1 -> vars2 COLON tipo SEMICOLON . vars3
+    (7) vars3 -> . vars1
+    (8) vars3 -> . epsilon
+    (5) vars1 -> . vars2 COLON tipo SEMICOLON vars3
+    (51) epsilon -> .
+    (6) vars2 -> . ID vars4
+
+    LCURL           reduce using rule 51 (epsilon -> .)
+    ID              shift and go to state 11
+
+    epsilon                        shift and go to state 51
+    vars3                          shift and go to state 52
+    vars2                          shift and go to state 9
+    vars1                          shift and go to state 53
+
+state 37
+
+    (36) condicion -> IFSYM LPAREN expresion . RPAREN bloque condicion1 SEMICOLON
+
+    RPAREN          shift and go to state 54
+
+
+state 38
+
+    (20) expresion -> exp . expresion1
+    (21) expresion1 -> . epsilon
+    (22) expresion1 -> . expresion2 exp
+    (51) epsilon -> .
+    (23) expresion2 -> . LSS
+    (24) expresion2 -> . GTR
+    (25) expresion2 -> . NEG
+
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+    LSS             shift and go to state 59
+    GTR             shift and go to state 58
+    NEG             shift and go to state 60
+
+    expresion1                     shift and go to state 55
+    epsilon                        shift and go to state 57
+    expresion2                     shift and go to state 56
+
+state 39
+
+    (47) factor1 -> epsilon .
+
+    FLOAT           reduce using rule 47 (factor1 -> epsilon .)
+    INT             reduce using rule 47 (factor1 -> epsilon .)
+    ID              reduce using rule 47 (factor1 -> epsilon .)
+
+
+state 40
+
+    (39) termino -> factor . termino1
+    (40) termino1 -> . TIMES factor termino1
+    (41) termino1 -> . SLASH factor termino1
+    (42) termino1 -> . epsilon
+    (51) epsilon -> .
+
+    TIMES           shift and go to state 64
+    SLASH           shift and go to state 63
+    PLUS            reduce using rule 51 (epsilon -> .)
+    MINUS           reduce using rule 51 (epsilon -> .)
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 61
+    termino1                       shift and go to state 62
+
+state 41
+
+    (44) factor -> factor1 . varcte
+    (48) varcte -> . FLOAT
+    (49) varcte -> . INT
+    (50) varcte -> . ID
+
+    FLOAT           shift and go to state 67
+    INT             shift and go to state 65
+    ID              shift and go to state 66
+
+    varcte                         shift and go to state 68
+
+state 42
+
+    (45) factor1 -> PLUS .
+
+    FLOAT           reduce using rule 45 (factor1 -> PLUS .)
+    INT             reduce using rule 45 (factor1 -> PLUS .)
+    ID              reduce using rule 45 (factor1 -> PLUS .)
+
+
+state 43
+
+    (43) factor -> LPAREN . expresion RPAREN
+    (20) expresion -> . exp expresion1
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    expresion                      shift and go to state 69
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 45
+    exp                            shift and go to state 38
+    factor                         shift and go to state 40
+
+state 44
+
+    (46) factor1 -> MINUS .
+
+    FLOAT           reduce using rule 46 (factor1 -> MINUS .)
+    INT             reduce using rule 46 (factor1 -> MINUS .)
+    ID              reduce using rule 46 (factor1 -> MINUS .)
+
+
+state 45
+
+    (32) exp -> termino . exp1
+    (33) exp1 -> . PLUS termino exp1
+    (34) exp1 -> . MINUS termino exp1
+    (35) exp1 -> . epsilon
+    (51) epsilon -> .
+
+    PLUS            shift and go to state 72
+    MINUS           shift and go to state 73
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 70
+    exp1                           shift and go to state 71
+
+state 46
+
+    (19) asignacion -> ID EQL expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 74
+
+
+state 47
+
+    (28) escritura2 -> expresion .
+
+    COMMA           reduce using rule 28 (escritura2 -> expresion .)
+    RPAREN          reduce using rule 28 (escritura2 -> expresion .)
+
+
+state 48
+
+    (29) escritura2 -> STRING .
+
+    COMMA           reduce using rule 29 (escritura2 -> STRING .)
+    RPAREN          reduce using rule 29 (escritura2 -> STRING .)
+
+
+state 49
+
+    (26) escritura -> PRINTSYM LPAREN escritura1 . RPAREN SEMICOLON
+
+    RPAREN          shift and go to state 75
+
+
+state 50
+
+    (27) escritura1 -> escritura2 . escritura3
+    (30) escritura3 -> . COMMA escritura1
+    (31) escritura3 -> . epsilon
+    (51) epsilon -> .
+
+    COMMA           shift and go to state 77
+    RPAREN          reduce using rule 51 (epsilon -> .)
+
+    escritura3                     shift and go to state 76
+    epsilon                        shift and go to state 78
+
+state 51
+
+    (8) vars3 -> epsilon .
+
+    LCURL           reduce using rule 8 (vars3 -> epsilon .)
+
+
+state 52
+
+    (5) vars1 -> vars2 COLON tipo SEMICOLON vars3 .
+
+    LCURL           reduce using rule 5 (vars1 -> vars2 COLON tipo SEMICOLON vars3 .)
+
+
+state 53
+
+    (7) vars3 -> vars1 .
+
+    LCURL           reduce using rule 7 (vars3 -> vars1 .)
+
+
+state 54
+
+    (36) condicion -> IFSYM LPAREN expresion RPAREN . bloque condicion1 SEMICOLON
+    (13) bloque -> . LCURL bloque1 RCURL
+
+    LCURL           shift and go to state 13
+
+    bloque                         shift and go to state 79
+
+state 55
+
+    (20) expresion -> exp expresion1 .
+
+    RPAREN          reduce using rule 20 (expresion -> exp expresion1 .)
+    COMMA           reduce using rule 20 (expresion -> exp expresion1 .)
+    SEMICOLON       reduce using rule 20 (expresion -> exp expresion1 .)
+
+
+state 56
+
+    (22) expresion1 -> expresion2 . exp
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 45
+    exp                            shift and go to state 80
+    factor                         shift and go to state 40
+
+state 57
+
+    (21) expresion1 -> epsilon .
+
+    RPAREN          reduce using rule 21 (expresion1 -> epsilon .)
+    SEMICOLON       reduce using rule 21 (expresion1 -> epsilon .)
+    COMMA           reduce using rule 21 (expresion1 -> epsilon .)
+
+
+state 58
+
+    (24) expresion2 -> GTR .
+
+    LPAREN          reduce using rule 24 (expresion2 -> GTR .)
+    PLUS            reduce using rule 24 (expresion2 -> GTR .)
+    MINUS           reduce using rule 24 (expresion2 -> GTR .)
+    FLOAT           reduce using rule 24 (expresion2 -> GTR .)
+    INT             reduce using rule 24 (expresion2 -> GTR .)
+    ID              reduce using rule 24 (expresion2 -> GTR .)
+
+
+state 59
+
+    (23) expresion2 -> LSS .
+
+    LPAREN          reduce using rule 23 (expresion2 -> LSS .)
+    PLUS            reduce using rule 23 (expresion2 -> LSS .)
+    MINUS           reduce using rule 23 (expresion2 -> LSS .)
+    FLOAT           reduce using rule 23 (expresion2 -> LSS .)
+    INT             reduce using rule 23 (expresion2 -> LSS .)
+    ID              reduce using rule 23 (expresion2 -> LSS .)
+
+
+state 60
+
+    (25) expresion2 -> NEG .
+
+    LPAREN          reduce using rule 25 (expresion2 -> NEG .)
+    PLUS            reduce using rule 25 (expresion2 -> NEG .)
+    MINUS           reduce using rule 25 (expresion2 -> NEG .)
+    FLOAT           reduce using rule 25 (expresion2 -> NEG .)
+    INT             reduce using rule 25 (expresion2 -> NEG .)
+    ID              reduce using rule 25 (expresion2 -> NEG .)
+
+
+state 61
+
+    (42) termino1 -> epsilon .
+
+    PLUS            reduce using rule 42 (termino1 -> epsilon .)
+    MINUS           reduce using rule 42 (termino1 -> epsilon .)
+    LSS             reduce using rule 42 (termino1 -> epsilon .)
+    GTR             reduce using rule 42 (termino1 -> epsilon .)
+    NEG             reduce using rule 42 (termino1 -> epsilon .)
+    RPAREN          reduce using rule 42 (termino1 -> epsilon .)
+    SEMICOLON       reduce using rule 42 (termino1 -> epsilon .)
+    COMMA           reduce using rule 42 (termino1 -> epsilon .)
+
+
+state 62
+
+    (39) termino -> factor termino1 .
+
+    PLUS            reduce using rule 39 (termino -> factor termino1 .)
+    MINUS           reduce using rule 39 (termino -> factor termino1 .)
+    LSS             reduce using rule 39 (termino -> factor termino1 .)
+    GTR             reduce using rule 39 (termino -> factor termino1 .)
+    NEG             reduce using rule 39 (termino -> factor termino1 .)
+    SEMICOLON       reduce using rule 39 (termino -> factor termino1 .)
+    RPAREN          reduce using rule 39 (termino -> factor termino1 .)
+    COMMA           reduce using rule 39 (termino -> factor termino1 .)
+
+
+state 63
+
+    (41) termino1 -> SLASH . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 39
+    factor                         shift and go to state 81
+    factor1                        shift and go to state 41
+
+state 64
+
+    (40) termino1 -> TIMES . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 39
+    factor                         shift and go to state 82
+    factor1                        shift and go to state 41
+
+state 65
+
+    (49) varcte -> INT .
+
+    TIMES           reduce using rule 49 (varcte -> INT .)
+    SLASH           reduce using rule 49 (varcte -> INT .)
+    PLUS            reduce using rule 49 (varcte -> INT .)
+    MINUS           reduce using rule 49 (varcte -> INT .)
+    LSS             reduce using rule 49 (varcte -> INT .)
+    GTR             reduce using rule 49 (varcte -> INT .)
+    NEG             reduce using rule 49 (varcte -> INT .)
+    RPAREN          reduce using rule 49 (varcte -> INT .)
+    SEMICOLON       reduce using rule 49 (varcte -> INT .)
+    COMMA           reduce using rule 49 (varcte -> INT .)
+
+
+state 66
+
+    (50) varcte -> ID .
+
+    TIMES           reduce using rule 50 (varcte -> ID .)
+    SLASH           reduce using rule 50 (varcte -> ID .)
+    PLUS            reduce using rule 50 (varcte -> ID .)
+    MINUS           reduce using rule 50 (varcte -> ID .)
+    LSS             reduce using rule 50 (varcte -> ID .)
+    GTR             reduce using rule 50 (varcte -> ID .)
+    NEG             reduce using rule 50 (varcte -> ID .)
+    RPAREN          reduce using rule 50 (varcte -> ID .)
+    SEMICOLON       reduce using rule 50 (varcte -> ID .)
+    COMMA           reduce using rule 50 (varcte -> ID .)
+
+
+state 67
+
+    (48) varcte -> FLOAT .
+
+    TIMES           reduce using rule 48 (varcte -> FLOAT .)
+    SLASH           reduce using rule 48 (varcte -> FLOAT .)
+    PLUS            reduce using rule 48 (varcte -> FLOAT .)
+    MINUS           reduce using rule 48 (varcte -> FLOAT .)
+    LSS             reduce using rule 48 (varcte -> FLOAT .)
+    GTR             reduce using rule 48 (varcte -> FLOAT .)
+    NEG             reduce using rule 48 (varcte -> FLOAT .)
+    RPAREN          reduce using rule 48 (varcte -> FLOAT .)
+    SEMICOLON       reduce using rule 48 (varcte -> FLOAT .)
+    COMMA           reduce using rule 48 (varcte -> FLOAT .)
+
+
+state 68
+
+    (44) factor -> factor1 varcte .
+
+    TIMES           reduce using rule 44 (factor -> factor1 varcte .)
+    SLASH           reduce using rule 44 (factor -> factor1 varcte .)
+    PLUS            reduce using rule 44 (factor -> factor1 varcte .)
+    MINUS           reduce using rule 44 (factor -> factor1 varcte .)
+    LSS             reduce using rule 44 (factor -> factor1 varcte .)
+    GTR             reduce using rule 44 (factor -> factor1 varcte .)
+    NEG             reduce using rule 44 (factor -> factor1 varcte .)
+    RPAREN          reduce using rule 44 (factor -> factor1 varcte .)
+    COMMA           reduce using rule 44 (factor -> factor1 varcte .)
+    SEMICOLON       reduce using rule 44 (factor -> factor1 varcte .)
+
+
+state 69
+
+    (43) factor -> LPAREN expresion . RPAREN
+
+    RPAREN          shift and go to state 83
+
+
+state 70
+
+    (35) exp1 -> epsilon .
+
+    LSS             reduce using rule 35 (exp1 -> epsilon .)
+    GTR             reduce using rule 35 (exp1 -> epsilon .)
+    NEG             reduce using rule 35 (exp1 -> epsilon .)
+    RPAREN          reduce using rule 35 (exp1 -> epsilon .)
+    SEMICOLON       reduce using rule 35 (exp1 -> epsilon .)
+    COMMA           reduce using rule 35 (exp1 -> epsilon .)
+
+
+state 71
+
+    (32) exp -> termino exp1 .
+
+    LSS             reduce using rule 32 (exp -> termino exp1 .)
+    GTR             reduce using rule 32 (exp -> termino exp1 .)
+    NEG             reduce using rule 32 (exp -> termino exp1 .)
+    COMMA           reduce using rule 32 (exp -> termino exp1 .)
+    RPAREN          reduce using rule 32 (exp -> termino exp1 .)
+    SEMICOLON       reduce using rule 32 (exp -> termino exp1 .)
+
+
+state 72
+
+    (33) exp1 -> PLUS . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 84
+    factor                         shift and go to state 40
+
+state 73
+
+    (34) exp1 -> MINUS . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 85
+    factor                         shift and go to state 40
+
+state 74
+
+    (19) asignacion -> ID EQL expresion SEMICOLON .
+
+    ID              reduce using rule 19 (asignacion -> ID EQL expresion SEMICOLON .)
+    IFSYM           reduce using rule 19 (asignacion -> ID EQL expresion SEMICOLON .)
+    PRINTSYM        reduce using rule 19 (asignacion -> ID EQL expresion SEMICOLON .)
+    RCURL           reduce using rule 19 (asignacion -> ID EQL expresion SEMICOLON .)
+
+
+state 75
+
+    (26) escritura -> PRINTSYM LPAREN escritura1 RPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 86
+
+
+state 76
+
+    (27) escritura1 -> escritura2 escritura3 .
+
+    RPAREN          reduce using rule 27 (escritura1 -> escritura2 escritura3 .)
+
+
+state 77
+
+    (30) escritura3 -> COMMA . escritura1
+    (27) escritura1 -> . escritura2 escritura3
+    (28) escritura2 -> . expresion
+    (29) escritura2 -> . STRING
+    (20) expresion -> . exp expresion1
+    (32) exp -> . termino exp1
+    (39) termino -> . factor termino1
+    (43) factor -> . LPAREN expresion RPAREN
+    (44) factor -> . factor1 varcte
+    (45) factor1 -> . PLUS
+    (46) factor1 -> . MINUS
+    (47) factor1 -> . epsilon
+    (51) epsilon -> .
+
+    STRING          shift and go to state 48
+    LPAREN          shift and go to state 43
+    PLUS            shift and go to state 42
+    MINUS           shift and go to state 44
+    FLOAT           reduce using rule 51 (epsilon -> .)
+    INT             reduce using rule 51 (epsilon -> .)
+    ID              reduce using rule 51 (epsilon -> .)
+
+    expresion                      shift and go to state 47
+    factor1                        shift and go to state 41
+    epsilon                        shift and go to state 39
+    termino                        shift and go to state 45
+    exp                            shift and go to state 38
+    factor                         shift and go to state 40
+    escritura1                     shift and go to state 87
+    escritura2                     shift and go to state 50
+
+state 78
+
+    (31) escritura3 -> epsilon .
+
+    RPAREN          reduce using rule 31 (escritura3 -> epsilon .)
+
+
+state 79
+
+    (36) condicion -> IFSYM LPAREN expresion RPAREN bloque . condicion1 SEMICOLON
+    (37) condicion1 -> . ELSESYM bloque
+    (38) condicion1 -> . epsilon
+    (51) epsilon -> .
+
+    ELSESYM         shift and go to state 88
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 89
+    condicion1                     shift and go to state 90
+
+state 80
+
+    (22) expresion1 -> expresion2 exp .
+
+    RPAREN          reduce using rule 22 (expresion1 -> expresion2 exp .)
+    SEMICOLON       reduce using rule 22 (expresion1 -> expresion2 exp .)
+    COMMA           reduce using rule 22 (expresion1 -> expresion2 exp .)
+
+
+state 81
+
+    (41) termino1 -> SLASH factor . termino1
+    (40) termino1 -> . TIMES factor termino1
+    (41) termino1 -> . SLASH factor termino1
+    (42) termino1 -> . epsilon
+    (51) epsilon -> .
+
+    TIMES           shift and go to state 64
+    SLASH           shift and go to state 63
+    PLUS            reduce using rule 51 (epsilon -> .)
+    MINUS           reduce using rule 51 (epsilon -> .)
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 61
+    termino1                       shift and go to state 91
+
+state 82
+
+    (40) termino1 -> TIMES factor . termino1
+    (40) termino1 -> . TIMES factor termino1
+    (41) termino1 -> . SLASH factor termino1
+    (42) termino1 -> . epsilon
+    (51) epsilon -> .
+
+    TIMES           shift and go to state 64
+    SLASH           shift and go to state 63
+    PLUS            reduce using rule 51 (epsilon -> .)
+    MINUS           reduce using rule 51 (epsilon -> .)
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 61
+    termino1                       shift and go to state 92
+
+state 83
+
+    (43) factor -> LPAREN expresion RPAREN .
+
+    TIMES           reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    SLASH           reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    PLUS            reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    MINUS           reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    LSS             reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    GTR             reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    NEG             reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    RPAREN          reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    COMMA           reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+    SEMICOLON       reduce using rule 43 (factor -> LPAREN expresion RPAREN .)
+
+
+state 84
+
+    (33) exp1 -> PLUS termino . exp1
+    (33) exp1 -> . PLUS termino exp1
+    (34) exp1 -> . MINUS termino exp1
+    (35) exp1 -> . epsilon
+    (51) epsilon -> .
+
+    PLUS            shift and go to state 72
+    MINUS           shift and go to state 73
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 70
+    exp1                           shift and go to state 93
+
+state 85
+
+    (34) exp1 -> MINUS termino . exp1
+    (33) exp1 -> . PLUS termino exp1
+    (34) exp1 -> . MINUS termino exp1
+    (35) exp1 -> . epsilon
+    (51) epsilon -> .
+
+    PLUS            shift and go to state 72
+    MINUS           shift and go to state 73
+    LSS             reduce using rule 51 (epsilon -> .)
+    GTR             reduce using rule 51 (epsilon -> .)
+    NEG             reduce using rule 51 (epsilon -> .)
+    RPAREN          reduce using rule 51 (epsilon -> .)
+    SEMICOLON       reduce using rule 51 (epsilon -> .)
+    COMMA           reduce using rule 51 (epsilon -> .)
+
+    epsilon                        shift and go to state 70
+    exp1                           shift and go to state 94
+
+state 86
+
+    (26) escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON .
+
+    ID              reduce using rule 26 (escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON .)
+    IFSYM           reduce using rule 26 (escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON .)
+    PRINTSYM        reduce using rule 26 (escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON .)
+    RCURL           reduce using rule 26 (escritura -> PRINTSYM LPAREN escritura1 RPAREN SEMICOLON .)
+
+
+state 87
+
+    (30) escritura3 -> COMMA escritura1 .
+
+    RPAREN          reduce using rule 30 (escritura3 -> COMMA escritura1 .)
+
+
+state 88
+
+    (37) condicion1 -> ELSESYM . bloque
+    (13) bloque -> . LCURL bloque1 RCURL
+
+    LCURL           shift and go to state 13
+
+    bloque                         shift and go to state 95
+
+state 89
+
+    (38) condicion1 -> epsilon .
+
+    SEMICOLON       reduce using rule 38 (condicion1 -> epsilon .)
+
+
+state 90
+
+    (36) condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 . SEMICOLON
+
+    SEMICOLON       shift and go to state 96
+
+
+state 91
+
+    (41) termino1 -> SLASH factor termino1 .
+
+    PLUS            reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    MINUS           reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    LSS             reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    GTR             reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    NEG             reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    RPAREN          reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    SEMICOLON       reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+    COMMA           reduce using rule 41 (termino1 -> SLASH factor termino1 .)
+
+
+state 92
+
+    (40) termino1 -> TIMES factor termino1 .
+
+    PLUS            reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    MINUS           reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    LSS             reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    GTR             reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    NEG             reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    RPAREN          reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    SEMICOLON       reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+    COMMA           reduce using rule 40 (termino1 -> TIMES factor termino1 .)
+
+
+state 93
+
+    (33) exp1 -> PLUS termino exp1 .
+
+    LSS             reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+    GTR             reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+    NEG             reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+    RPAREN          reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+    SEMICOLON       reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+    COMMA           reduce using rule 33 (exp1 -> PLUS termino exp1 .)
+
+
+state 94
+
+    (34) exp1 -> MINUS termino exp1 .
+
+    LSS             reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+    GTR             reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+    NEG             reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+    RPAREN          reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+    SEMICOLON       reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+    COMMA           reduce using rule 34 (exp1 -> MINUS termino exp1 .)
+
+
+state 95
+
+    (37) condicion1 -> ELSESYM bloque .
+
+    SEMICOLON       reduce using rule 37 (condicion1 -> ELSESYM bloque .)
+
+
+state 96
+
+    (36) condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON .
+
+    ID              reduce using rule 36 (condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON .)
+    IFSYM           reduce using rule 36 (condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON .)
+    PRINTSYM        reduce using rule 36 (condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON .)
+    RCURL           reduce using rule 36 (condicion -> IFSYM LPAREN expresion RPAREN bloque condicion1 SEMICOLON .)
+
